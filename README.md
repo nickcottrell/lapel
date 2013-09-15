@@ -5,6 +5,8 @@ lapel
 This project started when I was playing around with the all voice Bluetooth interface in my car to make a phone call. I suddenly became fascinated by voice interactions and wanted to start playing around with something. I have to admit, the first thing I thought was, "I'm sure there's got to be some open source voice library out there"...and of course, there was. Basically, among many things I found during my initial search, [pocketsphinx.js](https://github.com/syl22-00/pocketsphinx.js) and [meSpeak](http://www.masswerk.at/mespeak/) seemed to stand out because they are both open source javascript libraries that are reasonably straight forward to get started with. 
 
 ### The goal
+Create a super simple interface module. I.e. something that you can use to implement one or more voice controlled features... like "next" or "previous" on a menu. That means:
+
 * **Create a basic interaction module** that accepts inputs and maps to a conditional argument
 * **Create a viable speech recognition loop** so that it may be incorporated into conditional functionality
 
