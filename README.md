@@ -18,7 +18,7 @@ Basically the demo is currently a hack job of two demos: pocketsphinx.js and meS
 [Click here to view the demo](http://istitch.net/lapel)
 
 ### Areas of interests:
-* functional feedback cycle
+* functional feedback cycles
 * voice interface cues and timing
 * voice combined with other sounds
 * voice combined with visuals
