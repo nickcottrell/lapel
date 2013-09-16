@@ -1,5 +1,7 @@
-      //***LAPEL*** intro to the demo
-      meSpeak.speak("This is a voice interface. You must allow use of your browser's microphone.");
+$.getScript("js/demo-LAPEL.js", function(){
+   console.log("POCKETSPHINX: demo-LAPEL script loaded and executed.");
+});
+
 
 
       // These will be initialized later
@@ -57,36 +59,24 @@
         // If a recognizer is ready, we pass it to the recorder
         if (recognizer) recorder.recognizer = recognizer;
         recorderReady = true;
-	    
-	    //***LAPEL***
-		meSpeak.speak("Voice enabled. Name a fruit that rhymes with ape.");
-		//***LAPEL***
 		
 		updateUI();
-        updateStatus("Audio recorder ready");			
-
-        //***LAPEL*** hacked the interface so that the button is clicked automatcially   
-		setTimeout(function() {
-        var startBtn_BLEEP = document.getElementById('startBtn');
-	    startBtn_BLEEP.click();
-		}, 1000);        
+        //updateStatus("Audio recorder ready");			
+        console.log("POCKETSPHINX: Audio recorder ready");			
+		
+        //***LAPEL*** hacked the interface so that the button is clicked at the appropriate time in the queue  
+		LAPEL_initRecord(); 
+        //***LAPEL*** 
       };
 
-      // This starts recording. We first need to get the id of the grammar to use
-      var startRecording = function() {
-        
-        //***LAPEL*** add a message promt to cue the user; delay for 2 seconds to allow for the initial message
-        setTimeout(function() {
-          meSpeak.speak("speak.");
-		}, 2000);
-		
-		//***LAPEL*** add a time delay of 3 seconds so that it doesn't record the robot voice
-		setTimeout(function() {
+      // This starts recording. We first need to get the id of the grammar to use		
+        var startRecording = function() {
+          //***LAPEL*** added a set timeout so that it won't record the speech queue
+          setTimeout(function() {
         	var id = document.getElementById('grammars').value;
         	if (recorder && recorder.start(id)) displayRecording(true);
-		}, 3000);
-      };
-
+          }, 1000); 
+        };
 
       // Stops recording
       var stopRecording = function() {
@@ -100,7 +90,8 @@
            updateGrammars();
            recognizerReady = true;
            updateUI();
-           updateStatus("Recognizer ready");
+           //updateStatus("Recognizer ready");
+           console.log("POCKETSPHINX: Recognizer ready");
       };
 
       // We get the grammars defined below and fill in the input select tag
@@ -148,7 +139,9 @@
       // When the page is loaded, we spawn a new recognizer worker and call getUserMedia to
       // request access to the microphone
       window.onload = function init() {
-        updateStatus("Initializing Web Audio and speech recognizer, waiting for approval to access your microphone");
+        //updateStatus("Initializing Web Audio and speech recognizer, waiting for approval to access your microphone");
+        console.log("POCKETSPHINX: Initializing Web Audio and speech recognizer, waiting for approval to access your microphone");
+
         callbackManager = new CallbackManager();
         spawnWorker("js/recognizer.js", function(worker) {
             // This is the onmessage function, once the worker is fully loaded
@@ -187,10 +180,13 @@
 					};
                 }
 
-
+				
+                
                 // This is the case when we have an error
                 if (e.data.hasOwnProperty('status') && (e.data.status == "error")) {
-                  updateStatus("Error in " + e.data.command + " with code " + e.data.code);
+                  //updateStatus("Error in " + e.data.command + " with code " + e.data.code);
+                  console.log("POCKETSPHINX: Error in " + e.data.command + " with code " + e.data.code);
+
                 }
 
             };
@@ -204,12 +200,16 @@
           window.URL = window.URL || window.webkitURL;
           audio_context = new AudioContext();
         } catch (e) {
-          updateStatus("Error initializing Web Audio browser");
+          //updateStatus("Error initializing Web Audio browser");
+          console.log("POCKETSPHINX: Error initializing Web Audio browser");
+
         }
         if (navigator.getUserMedia) navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-                                        updateStatus("No live audio input in this browser");
+                                        //updateStatus("No live audio input in this browser");
+                                        console.log("POCKETSPHINX: No live audio input in this browser");
                                     });
-        else updateStatus("No web audio support in this browser");
+        //else updateStatus("No web audio support in this browser");
+        else console.log("POCKETSPHINX: No web audio support in this browser");
 
       // Wiring JavaScript to the UI
       var startBtn = document.getElementById('startBtn');
@@ -219,6 +219,21 @@
       startBtn.onclick = startRecording;
       stopBtn.onclick = stopRecording;
       };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
        // This is the list of words that need to be added to the recognizer
        // This follows the CMU dictionary format
@@ -238,3 +253,12 @@
       var grammars = [{title: "Digits", g: grammarDigits}, {title: "Cities", g: grammarCities}, {title: "Fruits", g: grammarFruits}];
 
       var grammarIds = [];
+
+
+
+
+
+
+
+
+
