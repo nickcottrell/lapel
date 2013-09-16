@@ -41,3 +41,14 @@ In the process, I've been learning about speech recognition fundamentals as well
 * set a variable in the listing function and use it in lapel demo script: SCRATCHING HEAD
 * refactor to exclude multiple grammars; factor out grammars to separate script: NOT STARTED
 * better separation of UI wiring to listening functionality: NOT STARTED
+
+
+
+### License Information
+* [pocketsphinx.js](https://github.com/syl22-00/pocketsphinx.js#9-license)
+* [meSpeak](https://github.com/kripken/speak.js/blob/master/License.txt)
+
+
+
+
+
