@@ -1,4 +1,4 @@
-lapel
+Lapel
 =====
 
 ## Simple(ish) voice interface
