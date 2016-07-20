@@ -4,7 +4,7 @@ Lapel
 ## Simple(ish) voice interface
 This project started when I was playing around with the all voice Bluetooth interface in my car to make a phone call. I suddenly became fascinated by voice interactions and wanted to start playing around with something. I have to admit, the first thing I thought was, "I'm sure there's got to be some open source voice library out there"...and of course, there was. Basically, among many things I found during my initial search, [pocketsphinx.js](https://github.com/syl22-00/pocketsphinx.js) and [meSpeak](http://www.masswerk.at/mespeak/) seemed to stand out because they are both open source javascript libraries that are reasonably straight forward to get started with.
 
-Please note: this project is like at the alpha-iest of all alphas... 
+Please note: this project is at the alpha-iest of all alphas... 
 
 ### The goal
 Create a super simple interface module. i.e. something that you can use to implement one or more voice controlled features... like "next" or "previous" on a menu. That means:
@@ -21,7 +21,8 @@ Basically the demo is currently a hack job of two demos: pocketsphinx.js and meS
 
 **Disclaimer #3**: you might need to re-load the page at least once for it to work.
 
-[Click here to view the demo](http://istitch.net/lapel)
+DEMO ONLY WORKS LOCALLY
+<!--[Click here to view the demo](http://istitch.net/lapel)-->
 
 ### Areas of interests:
 * functional feedback cycles
@@ -31,17 +32,10 @@ Basically the demo is currently a hack job of two demos: pocketsphinx.js and meS
 * refactoring code so that timing can be better controlled and more linear
 * consolidation of code while being able to update developing libraries
 * optimization workflows
+* compatibility with A-Frame projects and WebVR
 
 ### Additional research
 In the process, I've been learning about speech recognition fundamentals as well as getting updates on the state of affairs from the [CMU Sphinx project](http://cmusphinx.sourceforge.net/). 
-
-### CURRENT DEVELOPMENT:
-
-* factor out the timeline and control dialog/event queue: ALMOST COMPLETE
-* set a variable in the listing function and use it in lapel demo script: SCRATCHING HEAD
-* refactor to exclude multiple grammars; factor out grammars to separate script: NOT STARTED
-* better separation of UI wiring to listening functionality: NOT STARTED
-
 
 
 ### License Information
