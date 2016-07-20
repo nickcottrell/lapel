@@ -4,7 +4,7 @@
 
     function sayIntro() {
         console.log("sayIntro begins");
-        meSpeak.speak("This is a voice interface. You must allow use of your browser's microphone. Click THEE allow button on the top right.");
+        meSpeak.speak("This is a voice interface. You must allow use of your browser's microphone. Click THEE allow button.");
           setTimeout(function() {
             //console.log("TIMELINE set to 100");
             TIMELINE = 100;
