@@ -1,7 +1,7 @@
 Lapel
 =====
 
-## Simple(ish) voice interface
+## Javascript voice interface
 This project started when I was playing around with the all voice Bluetooth interface in my car to make a phone call. I suddenly became fascinated by voice interactions and wanted to start playing around with something. I have to admit, the first thing I thought was, "I'm sure there's got to be some open source voice library out there"...and of course, there was. Basically, among many things I found during my initial search, [pocketsphinx.js](https://github.com/syl22-00/pocketsphinx.js) and [meSpeak](http://www.masswerk.at/mespeak/) seemed to stand out because they are both open source javascript libraries that are reasonably straight forward to get started with.
 
 Please note: this project is at the alpha-iest of all alphas... 
