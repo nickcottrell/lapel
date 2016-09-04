@@ -23,6 +23,7 @@ Basically the demo is currently a hack job of two demos: pocketsphinx.js and meS
 
 **DEMO ONLY WORKS LOCALLY**
 clone the repo, then:
+	
 	$ cd server
 	$ bash serve-local.sh
 
