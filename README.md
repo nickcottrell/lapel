@@ -21,7 +21,11 @@ Basically the demo is currently a hack job of two demos: pocketsphinx.js and meS
 
 **Disclaimer #3**: you might need to re-load the page at least once for it to work.
 
-DEMO ONLY WORKS LOCALLY
+**DEMO ONLY WORKS LOCALLY**
+clone the repo, then:
+	$ cd server
+	$ bash serve-local.sh
+
 <!--[Click here to view the demo](http://istitch.net/lapel)-->
 
 ### Areas of interests:
