@@ -4,32 +4,32 @@
 
     function sayIntro() {
         console.log("sayIntro begins");
-        meSpeak.speak("This is a voice interface. You must allow use of your browser's microphone. Click THEE allow button.");
+        meSpeak.speak("This is a voice interface.");
           setTimeout(function() {
-            //console.log("TIMELINE set to 100");
             TIMELINE = 100;
-          }, 10000); //this is how long it takes for the reader to finish saying the line of text.
+            console.log("TIMELINE set to 100");
+          }, 2000); //this is how long it takes for the reader to finish saying the line of text.
       };
 
       function sayEnabled() {
         if (TIMELINE == 100) {
-          console.log("After checking it, TIMELINE is indeed set to 1.");
-          meSpeak.speak("Voice enabled. Name a fruit that rhymes with ape.");
+          console.log("After checking it, TIMELINE is set to 100.");
+          meSpeak.speak("Name a fruit that rhymes with ape.");
           setTimeout(function() {
             console.log("TIMELINE set to 200");
             TIMELINE = 200;
-          }, 5000); //this is how long it takes for the reader to finish saying the line of text.
+          }, 0	); //this is how long it takes for the reader to finish saying the line of text.
         } else {
           setTimeout(function() {
             //console.log("reloaded sayEnabled");
             sayEnabled();
-           }, 1000);
+           }, 0);
         }
        };
 
       function sayRecording() {
         if (TIMELINE == 200) {
-          console.log("After checking it, TIMELINE is indeed set to 2.");
+          console.log("After checking it, TIMELINE is set to 200.");
           setTimeout(function() {
             console.log("TIMELINE set to 300");
             TIMELINE = 300;
