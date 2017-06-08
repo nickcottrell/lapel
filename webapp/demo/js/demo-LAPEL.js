@@ -18,12 +18,12 @@
           setTimeout(function() {
             console.log("TIMELINE set to 200");
             TIMELINE = 200;
-          }, 0	); //this is how long it takes for the reader to finish saying the line of text.
+          }, 500	); //this is how long it takes for the reader to finish saying the line of text.
         } else {
           setTimeout(function() {
             //console.log("reloaded sayEnabled");
             sayEnabled();
-           }, 0);
+           }, 500);
         }
        };
 
@@ -33,12 +33,12 @@
           setTimeout(function() {
             console.log("TIMELINE set to 300");
             TIMELINE = 300;
-          }, 1000); //this is how long it takes for the reader to finish saying the line of text.
+          }, 1500); //this is how long it takes for the reader to finish saying the line of text.
         } else {
           setTimeout(function() {
             console.log("reloaded sayRecording");
             sayRecording();
-           }, 999);
+           }, 500); //this is the time before the speech recognizer starts
         }
        };
 
@@ -49,12 +49,12 @@
           setTimeout(function() {
             console.log("TIMELINE set to 400");
             TIMELINE = 400;
-          }, 3000); //this is how long it takes for the reader to finish saying the line of text.
+          }, 1000); //this is how long it takes for the reader to finish saying the line of text.
         } else {
           setTimeout(function() {
             console.log("reloaded LAPEL_initRecord");
             LAPEL_initRecord();
-           }, 999);
+           }, 500);
         }
 	  };
 	

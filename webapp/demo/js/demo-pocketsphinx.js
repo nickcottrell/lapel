@@ -2,6 +2,9 @@ $.getScript("js/demo-LAPEL.js", function(){
    console.log("POCKETSPHINX: demo-LAPEL script loaded and executed.");
 });
 
+$.getScript("js/demo-VOCABULARY.js", function(){
+   console.log("POCKETSPHINX: demo-VOCABULARY script loaded and executed.");
+});
 
 
       // These will be initialized later
@@ -10,7 +13,7 @@ $.getScript("js/demo-LAPEL.js", function(){
       var recorderReady = recognizerReady = false;
 
       // A convenience function to post a message to the recognizer and associate
-      // a callbac to its response
+      // a callback to its response
       function postRecognizerJob(message, callback) {
         var msg = message || {};
         if(callbackManager) msg.callbackId = callbackManager.add(callback);
@@ -41,7 +44,7 @@ $.getScript("js/demo-LAPEL.js", function(){
 
       // This is just a logging window where we display the status
       function updateStatus(newStatus) {
-        document.getElementById('current-status').innerHTML += "<br/>" + newStatus;
+        console.log("PX: UPDATE STATUS:" + newStatus + "\n");
       };
 
       // A not-so-great recording indicator
@@ -62,21 +65,23 @@ $.getScript("js/demo-LAPEL.js", function(){
 		
 		updateUI();
         //updateStatus("Audio recorder ready");			
-        console.log("POCKETSPHINX: Audio recorder ready");			
+        console.log("PX: Audio recorder ready");			
 		
         //***LAPEL*** hacked the interface so that the button is clicked at the appropriate time in the queue  
 		LAPEL_initRecord(); 
         //***LAPEL*** 
       };
 
-      // This starts recording. We first need to get the id of the grammar to use		
+    
+           // This starts recording. We first need to get the id of the grammar to use    
         var startRecording = function() {
-          //***LAPEL*** added a set timeout so that it won't record the speech queue
+          //***LAPEL*** added a set timeout so that it won't record the mespeak cue
           setTimeout(function() {
-        	var id = document.getElementById('grammars').value;
-        	if (recorder && recorder.start(id)) displayRecording(true);
-          }, 1000); 
+          var id = document.getElementById('grammars').value;
+          if (recorder && recorder.start(id)) displayRecording(true);
+          }, 2000); 
         };
+
 
       // Stops recording
       var stopRecording = function() {
@@ -90,8 +95,7 @@ $.getScript("js/demo-LAPEL.js", function(){
            updateGrammars();
            recognizerReady = true;
            updateUI();
-           //updateStatus("Recognizer ready");
-           console.log("POCKETSPHINX: Recognizer ready");
+           updateStatus("PX: Recognizer ready");
       };
 
       // We get the grammars defined below and fill in the input select tag
@@ -139,8 +143,7 @@ $.getScript("js/demo-LAPEL.js", function(){
       // When the page is loaded, we spawn a new recognizer worker and call getUserMedia to
       // request access to the microphone
       window.onload = function init() {
-        //updateStatus("Initializing Web Audio and speech recognizer, waiting for approval to access your microphone");
-        console.log("POCKETSPHINX: Initializing Web Audio and speech recognizer, waiting for approval to access your microphone");
+        updateStatus("PX: Initializing Web Audio and speech recognizer, waiting for approval to access your microphone");
 
         callbackManager = new CallbackManager();
         spawnWorker("js/recognizer.js", function(worker) {
@@ -161,31 +164,38 @@ $.getScript("js/demo-LAPEL.js", function(){
                   if (e.data.hasOwnProperty('final') &&  e.data.final)
                   updateHyp(newHyp);
 					
-					//***LAPEL*** record until you hear something. then automatically click the stop button
-					if (newHyp != 0) { 
-    					var stopBtn_BLEEP = document.getElementById('stopBtn');
-						stopBtn_BLEEP.click();
-						//***LAPEL*** let the user know that you have received the input
-						meSpeak.speak("ok");
-						
-						//***LAPEL*** delay 1.5 sec, determine if it's correct, then respond accordingly
-						setTimeout(function() {
-							if (newHyp == "GRAPE") {
-								meSpeak.speak("congratulations. grape is the magic word. You win.");
-							} else {
-								//meSpeak.speak(newHyp);
-								meSpeak.speak("incorrect. that does not RIME with ape. click the try again button");
-							};
-						}, 1500);
-					};
-                }
+					         //***LAPEL*** record until you hear something. then automatically click the stop button
+					         if (newHyp != 0) { 
+    					     
+                      var stopBtn_BLEEP = document.getElementById('stopBtn');
+                    stopBtn_BLEEP.click();
+                    //let the user know that you have received the input
+                    meSpeak.speak("ok, got it.");
+
+                   
+						        //delay 1.5 sec, determine if it's correct, then respond accordingly
+						        setTimeout(function() {
+							         if (newHyp == "GRAPE") {
+								        meSpeak.speak("congratulations. grape is the magic word. You win.");
+							         } else {
+							         //meSpeak.speak(newHyp);
+							         meSpeak.speak("incorrect. that does not RIME with ape. click the try again button");
+							         };
+						        }, 1500);
+					         };
+          
+                  }
 
 				
+
+
+
+
+
                 
                 // This is the case when we have an error
                 if (e.data.hasOwnProperty('status') && (e.data.status == "error")) {
-                  //updateStatus("Error in " + e.data.command + " with code " + e.data.code);
-                  console.log("POCKETSPHINX: Error in " + e.data.command + " with code " + e.data.code);
+                  updateStatus("PX: Error in " + e.data.command + " with code " + e.data.code);
 
                 }
 
@@ -200,140 +210,22 @@ $.getScript("js/demo-LAPEL.js", function(){
           window.URL = window.URL || window.webkitURL;
           audio_context = new AudioContext();
         } catch (e) {
-          //updateStatus("Error initializing Web Audio browser");
-          console.log("POCKETSPHINX: Error initializing Web Audio browser");
+          updateStatus("PX: Error initializing Web Audio browser");
 
         }
         if (navigator.getUserMedia) navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-                                        //updateStatus("No live audio input in this browser");
-                                        console.log("POCKETSPHINX: No live audio input in this browser");
+                                        updateStatus("PX: No live audio input in this browser");
                                     });
-        //else updateStatus("No web audio support in this browser");
-        else console.log("POCKETSPHINX: No web audio support in this browser");
+        else updateStatus("PX: No web audio support in this browser");
 
       // Wiring JavaScript to the UI
       var startBtn = document.getElementById('startBtn');
       var stopBtn = document.getElementById('stopBtn');
-	  startBtn.disabled = true;
-      stopBtn.disabled = true;
+	  startBtn.disabled = false;
+      stopBtn.disabled = false;
       startBtn.onclick = startRecording;
       stopBtn.onclick = stopRecording;
       };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       // This is the list of words that need to be added to the recognizer
-       // This follows the CMU dictionary format
-       // http://www.speech.cs.cmu.edu/cgi-bin/cmudict
-
-      var wordList = [
-["ONE", "W AH N"],
-["TWO", "T UW"], 
-["THREE", "TH R IY"], 
-["FOUR", "F AO R"], 
-["FIVE", "F AY V"], 
-["SIX", "S IH K S"], 
-["SEVEN", "S EH V AH N"], 
-["EIGHT", "EY T"], 
-["NINE", "N AY N"], 
-["ZERO", "Z IH R OW"], 
-["NEW-YORK", "N UW Y AO R K"], 
-["NEW-YORK-CITY", "N UW Y AO R K S IH T IY"], 
-["PARIS", "P AE R IH S"] , 
-["PARIS(2)", "P EH R IH S"], 
-["SHANGHAI", "SH AE NG HH AY"], 
-["SAN-FRANCISCO", "S AE N F R AE N S IH S K OW"], 
-["LONDON", "L AH N D AH N"], 
-["BERLIN", "B ER L IH N"], 
-["SUCKS", "S AH K S"], 
-["ROCKS", "R AA K S"], 
-["IS", "IH Z"], 
-["NOT", "N AA T"], 
-["GOOD", "G IH D"], 
-["GOOD(2)", "G UH D"], 
-["GREAT", "G R EY T"], 
-["WINDOWS", "W IH N D OW Z"], 
-["LINUX", "L IH N AH K S"], 
-["UNIX", "Y UW N IH K S"], 
-["MAC", "M AE K"], 
-["AND", "AE N D"], 
-["AND(2)", "AH N D"], 
-["O", "OW"], 
-["S", "EH S"], 
-["X", "EH K S"], 
-//***LAPEL***
-["PEAR", "P EY R"], 
-["GRAPE", "G R EY P"], 
-["APPLE", "AE P AH L"],
-["STRAWBERRY", "S T R AO B EH R IY"],
-["ORANGE", "AO R AH N JH"],
-["PEACH", "P IY CH"],
-["CHERRY", "CH EH R IY"],
-["PINEAPPLE", "P AY N AE P AH L"],
-["KIWI", "K IY W IY"],
-["WATERMELON", "W AO T ER M EH L AH N"],
-["MANGO", "M AE NG G OW"],
-["LEMON", "L EH M AH N"],
-["BANANA", "B AH N AE N AH"],
-["CANTALOUPE", "K AE N T AH L OW P"],
-["APRICOT", "EY P R AH K AA T"],
-["BLACKBERRY", "B L AE K B EH R IY"],
-["PAPAYA", "P AH P AY AH"],
-["TANGERINE", "T AE N JH ER IY N"],
-["POMEGRANATE", "P AA M AH G R AE N AH T"],
-["CRANBERRY", "K R AE N B EH R IY"]
-];
-
- 	  
-      // ***LAPEL*** This grammar recognizes fruits and is the only one used for the LAPEL DEMO
-      var grammarFruits = {numStates: 1, start: 0, end: 0, transitions: [
-	{from: 0, to: 0, word: "PEAR"}, 
-	{from: 0, to: 0, word: "GRAPE"}, 
-	{from: 0, to: 0, word: "APPLE"},
-	{from: 0, to: 0, word: "STRAWBERRY"},
-	{from: 0, to: 0, word: "ORANGE"},
-	{from: 0, to: 0, word: "PEACH"},
-	{from: 0, to: 0, word: "CHERRY"},
-	{from: 0, to: 0, word: "PINEAPPLE"},
-	{from: 0, to: 0, word: "KIWI"},
-	{from: 0, to: 0, word: "WATERMELON"},
-	{from: 0, to: 0, word: "MANGO"},
-	{from: 0, to: 0, word: "LEMON"},
-	{from: 0, to: 0, word: "BANANA"},
-	{from: 0, to: 0, word: "CANTALOUPE"},
-	{from: 0, to: 0, word: "APRICOT"},
-	{from: 0, to: 0, word: "BLACKBERRY"},
-	{from: 0, to: 0, word: "PAPAYA"},
-	{from: 0, to: 0, word: "TANGERINE"},
-	{from: 0, to: 0, word: "POMEGRANATE"},
-	{from: 0, to: 0, word: "CRANBERRY"}
-	]};
-      
-      // This grammar recognizes digits ***LAPEL***NOT BEING USED***LAPEL***
-      var grammarDigits = {numStates: 1, start: 0, end: 0, transitions: [{from: 0, to: 0, word: "ONE"},{from: 0, to: 0, word: "TWO"},{from: 0, to: 0, word: "THREE"},{from: 0, to: 0, word: "FOUR"},{from: 0, to: 0, word: "FIVE"},{from: 0, to: 0, word: "SIX"},{from: 0, to: 0, word: "SEVEN"},{from: 0, to: 0, word: "EIGHT"},{from: 0, to: 0, word: "NINE"},{from: 0, to: 0, word: "ZERO"}]};
-      
-      // This grammar recognizes a few cities names ***LAPEL***NOT BEING USED***LAPEL***
-      var grammarCities = {numStates: 1, start: 0, end: 0, transitions: [{from: 0, to: 0, word: "NEW-YORK"}, {from: 0, to: 0, word: "NEW-YORK-CITY"}, {from: 0, to: 0, word: "PARIS"}, {from: 0, to: 0, word: "SHANGHAI"}, {from: 0, to: 0, word: "SAN-FRANCISCO"}, {from: 0, to: 0, word: "LONDON"}, {from: 0, to: 0, word: "BERLIN"}]};
-      
-      var grammars = [{title: "Digits", g: grammarDigits}, {title: "Cities", g: grammarCities}, {title: "Fruits", g: grammarFruits}];
-
-      var grammarIds = [];
-
-
-
 
 
 
