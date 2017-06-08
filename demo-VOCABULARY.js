@@ -1,11 +1,10 @@
 
-       // This is the list of words that need to be added to the recognizer
-       // This follows the CMU dictionary format
-       // http://www.speech.cs.cmu.edu/cgi-bin/cmudict
+// This is the list of words that need to be added to the recognizer
+// This follows the CMU dictionary format
+// http://www.speech.cs.cmu.edu/cgi-bin/cmudict
 
-      var wordList = [
+var wordList = [
 
-//***LAPEL***
 //bool
 ["YES", "Y EH S"], 
 ["NO", "N OW"], 

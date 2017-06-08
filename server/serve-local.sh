@@ -1,4 +1,4 @@
 #!/bin/bash
 portnum="3030"
 
-ruby ./websrv.rb -d ../webapp/ --port $portnum
+ruby ./websrv.rb -d ../ --port $portnum

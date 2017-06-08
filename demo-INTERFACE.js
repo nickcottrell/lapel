@@ -6,7 +6,7 @@ let NO_MESSAGE = "incorrect. that does not RIME with ape. click the try again bu
 
 let QUESTION = "have you ever been camping?";
 let CORRECT_ANSWER = "YES";
-let YES_MESSAGE = "That's great. I like Yosemite...";
+let YES_MESSAGE = "That's great. I like Yosemiiiteeeee...";
 let NO_MESSAGE = "That's too bad. There are so many great places to see.";
 
 

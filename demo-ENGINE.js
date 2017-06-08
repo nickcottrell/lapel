@@ -1,11 +1,6 @@
-$.getScript("js/demo-LAPEL.js", function(){
-   console.log("POCKETSPHINX: demo-LAPEL script loaded and executed.");
+$.getScript("../demo-VOCABULARY.js", function(){
+   console.log("ENGINE: demo-VOCABULARY script loaded and executed.");
 });
-
-$.getScript("js/demo-VOCABULARY.js", function(){
-   console.log("POCKETSPHINX: demo-VOCABULARY script loaded and executed.");
-});
-
 
 
 $(document).ready(function() {

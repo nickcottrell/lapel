@@ -10,10 +10,9 @@
     meSpeak.loadConfig("js/mespeak_config.json");
     meSpeak.loadVoice("js/voices/en/en-us.json");
   	</script>
-	<script type="text/javascript" src="js/demo-LAPEL.js"></script>	
+	<script type="text/javascript" src="../demo-INTERFACE.js"></script>	
   	</head>
   <body>
-    <!--This demo works on Chrome with the Web Audio API, make sure it works for you and actually records audio (audio recording on Chrome does not work well on all configs).-->
 
 	<!--CONTROLS-->
     <div style="width:400px;">
@@ -31,7 +30,7 @@
 
     <!-- These are the two JavaScript files you must load in the HTML,
     The recognizer is loaded through a Web Worker -->
-	<script type="text/javascript" src="js/demo-pocketsphinx.js"></script>	
+    <script type="text/javascript" src="../demo-ENGINE.js"></script>
     <script type="text/javascript" src="js/audioRecorder.js"></script>
     <script type="text/javascript" src="js/callbackManager.js"></script>
   </body>
