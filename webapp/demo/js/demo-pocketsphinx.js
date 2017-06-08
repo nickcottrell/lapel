@@ -7,6 +7,65 @@ $.getScript("js/demo-VOCABULARY.js", function(){
 });
 
 
+
+$(document).ready(function() {
+  meSpeak.resetQueue();
+    sayEnabled(QUESTION, 1000);
+    sayRecording();
+});
+
+var TIMELINE = 100;    
+
+$( "#startBtn" ).click(function() {
+  meSpeak.speak("Speak.");
+});
+      
+      function sayEnabled(q, timing) {
+        if (TIMELINE == 100) {
+          meSpeak.speak(q);
+          setTimeout(function() {
+            TIMELINE = 200;
+          }, timing ); //this is how long it takes for the reader to finish saying the line of text.
+        } else {
+          setTimeout(function() {
+            sayEnabled();
+           }, 500);
+        }
+       };
+
+      function sayRecording() {
+        if (TIMELINE == 200) {
+          console.log("After checking it, TIMELINE is set to 200.");
+          setTimeout(function() {
+            TIMELINE = 300;
+          }, 1500); //this is how long it takes for the reader to finish saying the line of text.
+        } else {
+          setTimeout(function() {
+            sayRecording();
+           }, 500); //this is the time before the speech recognizer starts
+        }
+       };
+
+    function LAPEL_initRecord() {
+        if (TIMELINE == 300) {
+          //var startBtn_BLEEP = document.getElementById('startBtn');
+        $("#startBtn").click();
+          setTimeout(function() {
+            console.log("TIMELINE set to 400");
+            TIMELINE = 400;
+          }, 1000); //this is how long it takes for the reader to finish saying the line of text.
+        } else {
+          setTimeout(function() {
+            console.log("reloaded LAPEL_initRecord");
+            LAPEL_initRecord();
+           }, 500);
+        }
+    };
+  
+  
+
+
+
       // These will be initialized later
       var recognizer, recorder, callbackManager, audio_context;
       // Only when both recorder and recognizer do we have a ready application
@@ -175,11 +234,10 @@ $.getScript("js/demo-VOCABULARY.js", function(){
                    
 						        //delay 1.5 sec, determine if it's correct, then respond accordingly
 						        setTimeout(function() {
-							         if (newHyp == "GRAPE") {
-								        meSpeak.speak("congratulations. grape is the magic word. You win.");
+							         if (newHyp == CORRECT_ANSWER) {
+								        meSpeak.speak(YES_MESSAGE);
 							         } else {
-							         //meSpeak.speak(newHyp);
-							         meSpeak.speak("incorrect. that does not RIME with ape. click the try again button");
+							         meSpeak.speak(NO_MESSAGE);
 							         };
 						        }, 1500);
 					         };
