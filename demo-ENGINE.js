@@ -1,22 +1,35 @@
-$.getScript("../demo-VOCABULARY.js", function(){
-   console.log("ENGINE: demo-VOCABULARY script loaded and executed.");
-});
 
 
-$(document).ready(function() {
-  meSpeak.resetQueue();
-    sayEnabled(QUESTION, 1000);
-    sayRecording();
-});
 
-var TIMELINE = 100;    
+      // These will be initialized later
+      var recognizer, recorder, callbackManager, audio_context;
+      // Only when both recorder and recognizer do we have a ready application
+      var recorderReady = recognizerReady = false;
 
 $( "#startBtn" ).click(function() {
   meSpeak.speak("Speak.");
 });
+
+
+
+var QUESTION, CORRECT_ANSWER, YES_MESSAGE, NO_MESSAGE;
+
+
+
+
+function lapel_call(QUESTION, CORRECT_ANSWER, YES_MESSAGE, NO_MESSAGE) {
+
+
+var TIMELINE;    
+TIMELINE = 100;
+
+    sayEnabled(QUESTION, 1000);
+    sayRecording();
+
       
       function sayEnabled(q, timing) {
         if (TIMELINE == 100) {
+
           meSpeak.speak(q);
           setTimeout(function() {
             TIMELINE = 200;
@@ -46,13 +59,13 @@ $( "#startBtn" ).click(function() {
           //var startBtn_BLEEP = document.getElementById('startBtn');
         $("#startBtn").click();
           setTimeout(function() {
-            console.log("TIMELINE set to 400");
             TIMELINE = 400;
+            console.log("TIMELINE set to 400");
           }, 1000); //this is how long it takes for the reader to finish saying the line of text.
         } else {
           setTimeout(function() {
-            console.log("reloaded LAPEL_initRecord");
-            LAPEL_initRecord();
+           LAPEL_initRecord();
+           // console.log("reloaded LAPEL_initRecord");
            }, 500);
         }
     };
@@ -60,11 +73,6 @@ $( "#startBtn" ).click(function() {
   
 
 
-
-      // These will be initialized later
-      var recognizer, recorder, callbackManager, audio_context;
-      // Only when both recorder and recognizer do we have a ready application
-      var recorderReady = recognizerReady = false;
 
       // A convenience function to post a message to the recognizer and associate
       // a callback to its response
@@ -129,11 +137,10 @@ $( "#startBtn" ).click(function() {
     
            // This starts recording. We first need to get the id of the grammar to use    
         var startRecording = function() {
-          //***LAPEL*** added a set timeout so that it won't record the mespeak cue
           setTimeout(function() {
           var id = document.getElementById('grammars').value;
           if (recorder && recorder.start(id)) displayRecording(true);
-          }, 2000); 
+          }, 500); //***this is the delay between the prompt for speech and the recording initialized.  
         };
 
 
@@ -224,7 +231,7 @@ $( "#startBtn" ).click(function() {
                       var stopBtn_BLEEP = document.getElementById('stopBtn');
                     stopBtn_BLEEP.click();
                     //let the user know that you have received the input
-                    meSpeak.speak("ok, got it.");
+                    meSpeak.speak("OK, you said " + newHyp);
 
                    
 						        //delay 1.5 sec, determine if it's correct, then respond accordingly
@@ -281,6 +288,7 @@ $( "#startBtn" ).click(function() {
       };
 
 
+}//end lapel_call
 
 
 
