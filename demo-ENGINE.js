@@ -53,6 +53,8 @@ $( "#startBtn" ).click(function() {
           setTimeout(function() {
             console.log("reloaded LAPEL_initRecord");
             LAPEL_initRecord();
+                     audio_context.resume();//********************DELETE
+
            }, 500);
         }
     };
