@@ -53,7 +53,7 @@ $( "#startBtn" ).click(function() {
           setTimeout(function() {
             console.log("reloaded LAPEL_initRecord");
             LAPEL_initRecord();
-                     audio_context.resume();//********************DELETE
+                     audio_context.resume();//********************BUG FIX -- need to learn more about audio initializer
 
            }, 500);
         }
