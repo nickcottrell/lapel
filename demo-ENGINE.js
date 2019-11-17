@@ -1,5 +1,10 @@
-var TIMELINE = 42;
-console.log("TIMELINE set to "+TIMELINE);  
+
+const TIME_TO_WAIT = 999;
+const WAIT_FOR_RED_DOT = 500;
+const WAIT_TO_RESPOND = 2000;
+
+let timeLineNumber = 42;
+console.log("timeLineNumber set to "+timeLineNumber);  
 
 
 $.getScript("../demo-VOCABULARY.js", function(){
@@ -9,12 +14,12 @@ $.getScript("../demo-VOCABULARY.js", function(){
 
 $(document).ready(function() {
   meSpeak.resetQueue();
-    sayEnabled(QUESTION, 1000);
+    sayEnabled(QUESTION, QUESTION_TIME);
     //sayRecording();
 });
 
-var TIMELINE = 100;
-console.log("TIMELINE set to "+TIMELINE);  
+timeLineNumber = 100;
+console.log("timeLineNumber set to "+timeLineNumber);  
 
 
 $( "#startBtn" ).click(function() {
@@ -22,20 +27,20 @@ $( "#startBtn" ).click(function() {
 });
       
       function sayEnabled(q, timing) {
-        if (TIMELINE == 100) {
+        if (timeLineNumber == 100) {
           setTimeout(function(){
           meSpeak.speak(q);
 
           }, 1000 );
           setTimeout(function() {
-            TIMELINE = 200;
-            console.log("The timeline is supposed to be 200");   
-            console.log("TIMELINE set to "+TIMELINE);   
+            timeLineNumber = 200;
+            console.log("The timeLineNumber is supposed to be 200");   
+            console.log("timeLineNumber set to "+timeLineNumber);   
             sayRecording();
           }, timing ); //this is how long it takes for the reader to finish saying the line of text.
         } else {
          //relaunching to create a loop
-         console.log("sayEnabled ELSE invoked. timeline is actually:"+TIMELINE);   
+         console.log("sayEnabled ELSE invoked. timeLineNumber is actually:"+timeLineNumber);   
          setTimeout(function() {
            sayEnabled();
            }, 500);
@@ -43,16 +48,16 @@ $( "#startBtn" ).click(function() {
        };
 
       function sayRecording() {
-        if (TIMELINE == 200) {
-          console.log("After checking it, TIMELINE is set to "+TIMELINE);
+        if (timeLineNumber == 200) {
+          console.log("After checking it, timeLineNumber is set to "+timeLineNumber);
           setTimeout(function() {
-            TIMELINE = 300;
-            console.log("The timeline is supposed to be 300");   
-            console.log("TIMELINE set to "+TIMELINE); 
+            timeLineNumber = 300;
+            console.log("The timeLineNumber is supposed to be 300");   
+            console.log("timeLineNumber set to "+timeLineNumber); 
           }, 3000); //this is how long it takes for the reader to finish saying the line of text.
         } else {
         	//relaunching to create a loop
-          console.log("sayRecording ELSE invoked. timeline is actually:"+TIMELINE);   
+          console.log("sayRecording ELSE invoked. timeLineNumber is actually:"+timeLineNumber);   
           setTimeout(function() {
             sayRecording();
            }, 500); //this is the time before the speech recognizer starts
@@ -61,18 +66,18 @@ $( "#startBtn" ).click(function() {
 
     function LAPEL_initRecord() {
 
-    	 console.log("LAPEL_initRecord check timeline is"+TIMELINE);   
-        if (TIMELINE == 300) {
+    	 console.log("LAPEL_initRecord check timeLineNumber is"+timeLineNumber);   
+        if (timeLineNumber == 300) {
           //var startBtn_BLEEP = document.getElementById('startBtn');
         $("#startBtn").click();
           setTimeout(function() {
-            TIMELINE = 400;
-            console.log("The timeline is supposed to be 400");   
-            console.log("TIMELINE set to "+TIMELINE); 
+            let timeLineNumber = 400;
+            console.log("The timeLineNumber is supposed to be 400");   
+            console.log("timeLineNumber set to "+timeLineNumber); 
           }, 1000); //this is how long it takes for the reader to finish saying the line of text.
         } else {
           //relaunching to create a loop
-    	 console.log("LAPEL_initRecord ELSE invoked. timeline is actually:"+TIMELINE);   
+    	 console.log("LAPEL_initRecord ELSE invoked. timeLineNumber is actually:"+timeLineNumber);   
           setTimeout(function() {
             console.log("reloaded LAPEL_initRecord");
             LAPEL_initRecord();
@@ -157,7 +162,7 @@ $( "#startBtn" ).click(function() {
           setTimeout(function() {
           var id = document.getElementById('grammars').value;
           if (recorder && recorder.start(id)) displayRecording(true);
-          }, 500); //*******************THIS NUMBER CONTROLS HOW LONG IT TAKES FOR THE RED DOT TO TURN ON 
+          }, WAIT_FOR_RED_DOT); //*******************THIS NUMBER CONTROLS HOW LONG IT TAKES FOR THE RED DOT TO TURN ON 
         };
 
 
@@ -258,7 +263,7 @@ $( "#startBtn" ).click(function() {
 							         } else {
 							         meSpeak.speak(NO_MESSAGE);
 							         };
-						        }, 2000); //***************** THIS IS THE NUMBER BEFORE THE RESPONSE TO THE ANSWER
+						        }, WAIT_TO_RESPOND); //***************** THIS IS THE NUMBER BEFORE THE RESPONSE TO THE ANSWER
 					         };
           
                   }
