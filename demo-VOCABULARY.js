@@ -67,4 +67,6 @@ var grammars = [{title: "Combo", g: grammarCombo}];
 
 var grammarIds = [];
 
+	console.log("demo-VOCABULARY script executed.");
+
 

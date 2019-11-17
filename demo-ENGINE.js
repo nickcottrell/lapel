@@ -1,40 +1,58 @@
+var TIMELINE = 42;
+console.log("TIMELINE set to "+TIMELINE);  
+
+
 $.getScript("../demo-VOCABULARY.js", function(){
-   console.log("ENGINE: demo-VOCABULARY script loaded and executed.");
+	console.log("ENGINE: demo-VOCABULARY script loaded and executed.");
 });
 
 
 $(document).ready(function() {
   meSpeak.resetQueue();
     sayEnabled(QUESTION, 1000);
-    sayRecording();
+    //sayRecording();
 });
 
-var TIMELINE = 100;    
+var TIMELINE = 100;
+console.log("TIMELINE set to "+TIMELINE);  
+
 
 $( "#startBtn" ).click(function() {
-  meSpeak.speak("Speak.");
+  meSpeak.speak("Speak");
 });
       
       function sayEnabled(q, timing) {
         if (TIMELINE == 100) {
+          setTimeout(function(){
           meSpeak.speak(q);
+
+          }, 1000 );
           setTimeout(function() {
             TIMELINE = 200;
+            console.log("The timeline is supposed to be 200");   
+            console.log("TIMELINE set to "+TIMELINE);   
+            sayRecording();
           }, timing ); //this is how long it takes for the reader to finish saying the line of text.
         } else {
-          setTimeout(function() {
-            sayEnabled();
+         //relaunching to create a loop
+         console.log("sayEnabled ELSE invoked. timeline is actually:"+TIMELINE);   
+         setTimeout(function() {
+           sayEnabled();
            }, 500);
         }
        };
 
       function sayRecording() {
         if (TIMELINE == 200) {
-          console.log("After checking it, TIMELINE is set to 200.");
+          console.log("After checking it, TIMELINE is set to "+TIMELINE);
           setTimeout(function() {
             TIMELINE = 300;
-          }, 1500); //this is how long it takes for the reader to finish saying the line of text.
+            console.log("The timeline is supposed to be 300");   
+            console.log("TIMELINE set to "+TIMELINE); 
+          }, 3000); //this is how long it takes for the reader to finish saying the line of text.
         } else {
+        	//relaunching to create a loop
+          console.log("sayRecording ELSE invoked. timeline is actually:"+TIMELINE);   
           setTimeout(function() {
             sayRecording();
            }, 500); //this is the time before the speech recognizer starts
@@ -42,19 +60,23 @@ $( "#startBtn" ).click(function() {
        };
 
     function LAPEL_initRecord() {
+
+    	 console.log("LAPEL_initRecord check timeline is"+TIMELINE);   
         if (TIMELINE == 300) {
           //var startBtn_BLEEP = document.getElementById('startBtn');
         $("#startBtn").click();
           setTimeout(function() {
-            console.log("TIMELINE set to 400");
             TIMELINE = 400;
+            console.log("The timeline is supposed to be 400");   
+            console.log("TIMELINE set to "+TIMELINE); 
           }, 1000); //this is how long it takes for the reader to finish saying the line of text.
         } else {
+          //relaunching to create a loop
+    	 console.log("LAPEL_initRecord ELSE invoked. timeline is actually:"+TIMELINE);   
           setTimeout(function() {
             console.log("reloaded LAPEL_initRecord");
             LAPEL_initRecord();
-                     audio_context.resume();//********************BUG FIX -- need to learn more about audio initializer
-
+            audio_context.resume();//********************BUG FIX -- need to learn more about audio initializer
            }, 500);
         }
     };
@@ -135,7 +157,7 @@ $( "#startBtn" ).click(function() {
           setTimeout(function() {
           var id = document.getElementById('grammars').value;
           if (recorder && recorder.start(id)) displayRecording(true);
-          }, 2000); 
+          }, 500); //*******************THIS NUMBER CONTROLS HOW LONG IT TAKES FOR THE RED DOT TO TURN ON 
         };
 
 
@@ -236,7 +258,7 @@ $( "#startBtn" ).click(function() {
 							         } else {
 							         meSpeak.speak(NO_MESSAGE);
 							         };
-						        }, 1500);
+						        }, 2000); //***************** THIS IS THE NUMBER BEFORE THE RESPONSE TO THE ANSWER
 					         };
           
                   }
