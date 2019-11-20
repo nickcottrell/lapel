@@ -256,7 +256,7 @@ $( "#startBtn" ).click(function() {
                     meSpeak.speak("ok, got it.");
 
                    
-						        //delay 1.5 sec, determine if it's correct, then respond accordingly
+						        //delay for WAIT_TO_RESPOND time, determine if it's correct, then respond accordingly
 						        setTimeout(function() {
 							         if (newHyp == CORRECT_ANSWER) {
 								        meSpeak.speak(YES_MESSAGE);
