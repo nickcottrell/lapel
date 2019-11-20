@@ -257,14 +257,33 @@ $( "#startBtn" ).click(function() {
 
                    
 						        //delay for WAIT_TO_RESPOND time, determine if it's correct, then respond accordingly
-						        setTimeout(function() {
+						        //RESPONSE MESSAGE
+                    setTimeout(function() {
 							         if (newHyp == CORRECT_ANSWER) {
 								        meSpeak.speak(YES_MESSAGE);
 							         } else {
 							         meSpeak.speak(NO_MESSAGE);
 							         };
 						        }, WAIT_TO_RESPOND); //***************** THIS IS THE NUMBER BEFORE THE RESPONSE TO THE ANSWER
-					         };
+					         
+                   //RESET the number
+                   timeLineNumber = 100;
+                      console.log("RESETTING timeLineNumber to 100");   
+                      console.log("timeLineNumber set to "+timeLineNumber); 
+                        meSpeak.resetQueue();
+              
+                            setTimeout(function(){
+                            sayEnabled(QUESTION, QUESTION_TIME);
+                            }, 7000); //THE TIME NEEDS TO BE BASED on the length of the RESPONSE MESSAGE statement
+                                    //setTimeout(function() {
+                                    //document.getElementById('startBtn').click();
+                                    //let timeLineNumber = 400;
+                                    //console.log("The timeLineNumber is supposed to be 400");   
+                                    //console.log("timeLineNumber set to "+timeLineNumber); 
+                                    //}, 4000); //this is based on something...*/
+
+
+                   };
           
                   }
 
